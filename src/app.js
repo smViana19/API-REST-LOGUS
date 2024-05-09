@@ -5,7 +5,8 @@ import { resolve } from 'path';
 dotenv.config();
 import './database'
 import express from "express";
-
+import cors from 'cors';
+import helmet from 'helmet';
 
 import homeRoutes from "./routes/homeRoutes";
 import userRoutes from "./routes/userRoutes";
@@ -13,7 +14,21 @@ import tokenRoutes from "./routes/tokenRoutes";
 import alunoRoutes from "./routes/alunoRoutes";
 import fotoRoutes from "./routes/fotoRoutes";
 
+//PARA UTILIZAR A API
+const whiteList = [
+  'http://localhost:3000'
+];
 
+const corOptions = {
+  origin: function (origin, callback) {
+    //se a URI tiver nas opçoes de whiteList
+    if(whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 class App {
   constructor() {
     //atributos
@@ -23,6 +38,8 @@ class App {
   }
 
   middlewares() {
+    this.App.use(cors(corOptions));
+    this.App.use(helmet());
     //metodo das middlewares
     this.App.use(express.urlencoded({ extended: true })); //configuracao do express
     this.App.use(express.json());
