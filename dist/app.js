@@ -14,7 +14,21 @@ var _tokenRoutes = require('./routes/tokenRoutes'); var _tokenRoutes2 = _interop
 var _alunoRoutes = require('./routes/alunoRoutes'); var _alunoRoutes2 = _interopRequireDefault(_alunoRoutes);
 var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopRequireDefault(_fotoRoutes);
 
+//PARA UTILIZAR A API
+const whiteList = [
+  'http://localhost:3000'
+];
 
+const corOptions = {
+  origin: function (origin, callback) {
+    //se a URI tiver nas opçoes de whiteList
+    if(whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 class App {
   constructor() {
     //atributos
@@ -24,7 +38,7 @@ class App {
   }
 
   middlewares() {
-    this.App.use(_cors2.default.call(void 0, ));
+    this.App.use(_cors2.default.call(void 0, corOptions));
     this.App.use(_helmet2.default.call(void 0, ));
     //metodo das middlewares
     this.App.use(_express2.default.urlencoded({ extended: true })); //configuracao do express
