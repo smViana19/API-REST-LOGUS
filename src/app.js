@@ -16,6 +16,7 @@ import fotoRoutes from "./routes/fotoRoutes";
 
 //PARA UTILIZAR A API
 const whiteList = [
+  'http://localhost:5174',
   'http://localhost:3000'
 ];
 
