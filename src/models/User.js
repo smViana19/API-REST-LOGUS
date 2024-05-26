@@ -40,7 +40,12 @@ export default class User extends Model {
               msg: "A senha deve ter mais de 6 a 50 caracteres",
             },
           },
-        }, //nao existira no BD
+        },
+        role: {
+          //adicionado campo role para os tipos de perfis
+          type: Sequelize.ENUM("diretor", "estudante", "professor"),
+          defaultValue: "estudante",
+        },
       },
       {
         sequelize,

@@ -7,7 +7,7 @@ const router = new (0, _express.Router)();
 // router.get("/", userController.index);
 // router.get('/:id', userController.show);
 
-router.post("/", _UserController2.default.store);
+router.post("/", _UserController2.default.store); //loginRequired tirar para funcionar o registro
 router.put("/:id", _loginRequired2.default, _UserController2.default.update);
 router.delete("/", _loginRequired2.default, _UserController2.default.delete);
 

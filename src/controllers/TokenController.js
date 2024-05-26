@@ -18,17 +18,17 @@ class TokenController {
       });
     }
 
-    if(!(await user.passwordValida(password))){
+    if (!(await user.passwordValida(password))) {
       return res.status(401).json({
         errors: ["Senha inválida"],
       });
     }
 
-    const { id } = user;
-    const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
+    const { id, role } = user;
+    const token = jwt.sign({ id, email, role }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
-    return res.json({ token, user: { nome: user.nome, id, email }});
+    return res.json({ token, user: { nome: user.nome, id, email, role } });
   }
 }
 

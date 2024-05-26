@@ -16,7 +16,10 @@ var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopReq
 
 //PARA UTILIZAR A API
 const whiteList = [
-  'http://localhost:3000'
+  'http://localhost:5174',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5175'
 ];
 
 const corOptions = {
