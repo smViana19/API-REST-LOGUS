@@ -10,7 +10,7 @@ router.post("/", userController.store);
 router.get(
   "/",
   loginRequired,
-  roleMiddleware(["diretor", "professor", "estudante"]),
+  roleMiddleware(["diretor"]),
   userController.index,
 );
 router.get(
