@@ -4,7 +4,7 @@ export default class Task extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: {
+        titulo: {
           type: Sequelize.STRING,
           defaultValue: "",
           validate: {
@@ -14,7 +14,18 @@ export default class Task extends Model {
             },
           },
         },
-        description: {
+        categoria: {
+          type: Sequelize.STRING,
+          defaultValue: "",
+          validate: {
+            len: {
+              args: [3, 255],
+              msg: "Categoria precisa ter de 3 a 255 caracteres"
+            }
+          }
+
+        },
+        descricao: {
           type: Sequelize.STRING,
           defaultValue: "No description",
           validate: {
@@ -24,9 +35,9 @@ export default class Task extends Model {
             },
           },
         },
-        urgency: {
-          type: Sequelize.STRING,
-          defaultValue: "",
+        urgencia: {
+          type: Sequelize.ENUM("BAIXA", "MEDIA", "ALTA", "IMEDIATA"),
+          defaultValue: "BAIXA",
           validate: {
             notEmpty: {
               msg: "Campo nao pode ficar vazio",
@@ -44,5 +55,8 @@ export default class Task extends Model {
       },
     );
     return this;
+  }
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
   }
 }
