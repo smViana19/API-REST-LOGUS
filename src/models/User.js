@@ -60,6 +60,10 @@ export default class User extends Model {
     return this;
   }
 
+  static associate(models) {
+    this.hasMany(models.Task, { foreignKey: 'user_id', as: 'tasks' });
+  }
+
   passwordValida(password) {
     return bcryptjs.compare(password, this.password_hash); //retornar uma promisse
   }
