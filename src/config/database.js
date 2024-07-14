@@ -12,12 +12,12 @@ module.exports = {
     underscored: true,
     underscoredAll: true,
     'createdAt': 'created_at',
-    'uptdatedAt': 'uptdated_at'
+    'uptdatedAt': 'updated_at'
   },
   dialectOptions: {
-    timezone: 'America/SaoPaulo'
+    timezone: 'America/Sao_Paulo'
   },
-  timezone: 'America/SaoPaulo'
+  timezone: 'America/Sao_Paulo'
 
 
 }
