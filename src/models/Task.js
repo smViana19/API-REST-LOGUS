@@ -20,10 +20,9 @@ export default class Task extends Model {
           validate: {
             len: {
               args: [3, 255],
-              msg: "Categoria precisa ter de 3 a 255 caracteres"
-            }
-          }
-
+              msg: "Categoria precisa ter de 3 a 255 caracteres",
+            },
+          },
         },
         descricao: {
           type: Sequelize.STRING,
@@ -47,16 +46,16 @@ export default class Task extends Model {
       },
       {
         sequelize,
-        modelName: 'Task',
-        tableName: 'tasks',
+        modelName: "Task",
+        tableName: "tasks",
         timestamps: true, // Esta opção habilita os campos createdAt e updatedAt
-        createdAt: 'created_at', // Definindo explicitamente o nome das colunas (opcional)
-        updatedAt: 'updated_at', // Definindo explicitamente o nome das colunas (opcional)
+        createdAt: "created_at", // Definindo explicitamente o nome das colunas (opcional)
+        updatedAt: "updated_at", // Definindo explicitamente o nome das colunas (opcional)
       },
     );
     return this;
   }
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
   }
 }
