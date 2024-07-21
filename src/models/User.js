@@ -62,6 +62,8 @@ export default class User extends Model {
 
   static associate(models) {
     this.hasMany(models.Task, { foreignKey: 'user_id', as: 'tasks' });
+    this.hasMany(models.Subject, { foreignKey: 'user_id', as: 'subjects' });
+    this.hasMany(models.SubjectMaterial, { foreignKey: "user_id", as: "materials" });
   }
 
   passwordValida(password) {
