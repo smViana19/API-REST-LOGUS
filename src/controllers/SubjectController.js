@@ -1,11 +1,12 @@
 import Subject from "../models/Subject";
-import Task from "../models/Task";
 
-// eslint-disable-next-line no-unused-vars
+
 class SubjectController {
   async store(req, res) {
     try {
-      const subject = await Subject.create(req.body);
+      const { user_id, nome } = req.body;
+      console.log('Request Body:', req.body);
+      const subject = await Subject.create({ user_id, nome });
       return res.json(subject);
     } catch (e) {
       console.error("Erro ao criar materia: ", e);
@@ -23,9 +24,9 @@ class SubjectController {
           errors: ["Tarefa nao existe"],
         });
       }
-      const newSubject = await subject.update(req.body);
-      const {id, nome} = newSubject;
-      return res.json({id, nome});
+      const { user_id, nome } = req.body;
+      const updatedSubject = await subject.update({ user_id, nome });
+      return res.json(updatedSubject);
 
     } catch (e) {
       console.error("Erro ao editar materia:", e);
@@ -36,18 +37,35 @@ class SubjectController {
   }
 
   async index(req, res) {
+    const subject = await Subject.findAll({
+      attributes: ['id', 'nome', 'user_id'],
+      order: [
+        ["id", "DESC"]
+      ]
+    });
+    res.json(subject);
+  }
+
+
+  async delete(req, res) {
     try {
-      const subject = await Subject.findAll({
-        attributes: ["id", "nome"],
-        order: [
-          ["id", "DESC"]
-        ]
+      const subject = await Subject.findByPk(req.params.id);
+      if (!subject) {
+        return res.status(400).json({
+          errors: ["Materia nao existe."],
+        });
+      }
+      await subject.destroy();
+      return res.json({
+        message: ["Deletada com sucesso"],
       });
-      res.json(subject);
     } catch (e) {
+      console.error("Error excluir a materia:", e);
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message),
+        errors: ["Error ao excluir materia"],
       });
     }
   }
 }
+
+export default new SubjectController()
