@@ -13,6 +13,7 @@ import tokenRoutes from "./routes/tokenRoutes";
 import alunoRoutes from "./routes/alunoRoutes";
 import fotoRoutes from "./routes/fotoRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import subjectRoutes from "./routes/subjectRoutes";
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -57,6 +58,8 @@ class App {
     this.App.use("/alunos/", alunoRoutes);
     this.App.use("/fotos/", fotoRoutes);
     this.App.use("/tasks/", taskRoutes);
+    this.App.use("/subjects/", subjectRoutes);
+    this.App.use("/subject-materials/", subjectRoutes);
   }
 }
 
