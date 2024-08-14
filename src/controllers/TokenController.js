@@ -7,6 +7,7 @@ class TokenController {
 
     if (!email || !password) {
       return res.status(401).json({
+        status: 401,
         errors: ["Credenciais inválidas!"],
       });
     }
@@ -14,12 +15,14 @@ class TokenController {
 
     if (!user) {
       return res.status(401).json({
+        status: 401,
         errors: ["Usuário nao existe!"],
       });
     }
 
     if (!(await user.passwordValida(password))) {
       return res.status(401).json({
+        status: 401,
         errors: ["Senha inválida"],
       });
     }
@@ -28,7 +31,11 @@ class TokenController {
     const token = jwt.sign({ id, email, role }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
-    return res.json({ token, user: { nome: user.nome, id, email, role } });
+    return res.json({
+      status: 200,
+      token,
+      user: { nome: user.nome, id, email, role },
+    });
   }
 }
 
