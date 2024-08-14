@@ -14,6 +14,7 @@ import alunoRoutes from "./routes/alunoRoutes";
 import fotoRoutes from "./routes/fotoRoutes";
 import taskRoutes from "./routes/taskRoutes";
 import subjectRoutes from "./routes/subjectRoutes";
+import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -22,6 +23,7 @@ const whiteList = [
   "http://localhost:5173",
   "http://localhost:5175",
   "http://10.0.2.2:3000",
+  "http://localhost:3001"
 ];
 
 const corOptions = {
@@ -60,7 +62,7 @@ class App {
     this.App.use("/fotos/", fotoRoutes);
     this.App.use("/tasks/", taskRoutes);
     this.App.use("/subjects/", subjectRoutes);
-    this.App.use("/subject-materials/", subjectRoutes);
+    this.App.use("/subject-materials/", subjectMaterialRoutes);
   }
 }
 
