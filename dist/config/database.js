@@ -1,7 +1,7 @@
-"use strict";require('dotenv').config();
+"use strict";require("dotenv").config();
 
 module.exports = {
-  dialect: 'mysql',
+  dialect: "mysql",
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USERNAME,
@@ -11,13 +11,11 @@ module.exports = {
     timestamps: true,
     underscored: true,
     underscoredAll: true,
-    'createdAt': 'created_at',
-    'uptdatedAt': 'uptdated_at'
+    createdAt: "created_at",
+    uptdatedAt: "updated_at",
   },
   dialectOptions: {
-    timezone: 'America/SaoPaulo'
+    timezone: "America/Sao_Paulo",
   },
-  timezone: 'America/SaoPaulo'
-
-
-}
+  timezone: "America/Sao_Paulo",
+};

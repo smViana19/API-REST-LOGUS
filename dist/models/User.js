@@ -40,11 +40,16 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
               msg: "A senha deve ter mais de 6 a 50 caracteres",
             },
           },
-        }, //nao existira no BD
+        },
+        role: {
+          //adicionado campo role para os tipos de perfis
+          type: _sequelize2.default.ENUM("diretor", "estudante", "professor"),
+          defaultValue: "estudante",
+        },
       },
       {
         sequelize,
-      }
+      },
     );
 
     this.addHook("beforeSave", async (user) => {
@@ -53,6 +58,12 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
       }
     });
     return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.Task, { foreignKey: 'user_id', as: 'tasks' });
+    this.hasMany(models.Subject, { foreignKey: 'user_id', as: 'subjects' });
+    this.hasMany(models.SubjectMaterial, { foreignKey: "user_id", as: "materials" });
   }
 
   passwordValida(password) {

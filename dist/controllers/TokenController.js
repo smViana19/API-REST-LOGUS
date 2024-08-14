@@ -7,6 +7,7 @@ class TokenController {
 
     if (!email || !password) {
       return res.status(401).json({
+        status: 401,
         errors: ["Credenciais inválidas!"],
       });
     }
@@ -14,21 +15,27 @@ class TokenController {
 
     if (!user) {
       return res.status(401).json({
+        status: 401,
         errors: ["Usuário nao existe!"],
       });
     }
 
-    if(!(await user.passwordValida(password))){
+    if (!(await user.passwordValida(password))) {
       return res.status(401).json({
+        status: 401,
         errors: ["Senha inválida"],
       });
     }
 
-    const { id } = user;
-    const token = _jsonwebtoken2.default.sign({ id, email }, process.env.TOKEN_SECRET, {
+    const { id, role } = user;
+    const token = _jsonwebtoken2.default.sign({ id, email, role }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
-    return res.json({ token, user: { nome: user.nome, id, email }});
+    return res.json({
+      status: 200,
+      token,
+      user: { nome: user.nome, id, email, role },
+    });
   }
 }
 
