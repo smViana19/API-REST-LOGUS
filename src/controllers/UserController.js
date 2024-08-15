@@ -8,8 +8,10 @@ class UserController {
       const { id, nome, email, role } = novoUser;
       return res.json({ id, nome, email, role }); //adicionado role
     } catch (e) {
+      console.log("error: ", e)
       return res.status(400).json({
-        errors: ["deu erro"],
+        errors: ["deu erro "],
+
       });
     }
   }
