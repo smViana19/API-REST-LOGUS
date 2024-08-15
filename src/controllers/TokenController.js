@@ -5,10 +5,16 @@ class TokenController {
   async store(req, res) {
     const { email = "", password = "" } = req.body;
 
+    if(email === "" || password === "") {
+      return res.status(400).json({
+        status: 400,
+        errors: ["Preencha os campos."]
+      })
+    }
     if (!email || !password) {
       return res.status(401).json({
         status: 401,
-        errors: ["Credenciais inválidas!"],
+        errors: ["Credenciais inválidas."],
       });
     }
     const user = await User.findOne({ where: { email } });
@@ -16,14 +22,14 @@ class TokenController {
     if (!user) {
       return res.status(401).json({
         status: 401,
-        errors: ["Usuário nao existe!"],
+        errors: ["Usuario não encontrado."],
       });
     }
 
     if (!(await user.passwordValida(password))) {
       return res.status(401).json({
         status: 401,
-        errors: ["Senha inválida"],
+        errors: ["Credenciais inválidas."],
       });
     }
 
@@ -33,6 +39,7 @@ class TokenController {
     });
     return res.json({
       status: 200,
+      msg: "Logado com sucesso.",
       token,
       user: { nome: user.nome, id, email, role },
     });
