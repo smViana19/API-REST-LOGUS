@@ -5,11 +5,11 @@ class TokenController {
   async store(req, res) {
     const { email = "", password = "" } = req.body;
 
-    if(email === "" || password === "") {
+    if (email === "" || password === "") {
       return res.status(400).json({
         status: 400,
-        errors: ["Preencha os campos."]
-      })
+        errors: ["Preencha os campos."],
+      });
     }
     if (!email || !password) {
       return res.status(401).json({
