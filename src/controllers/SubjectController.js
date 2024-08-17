@@ -4,9 +4,11 @@ import Subject from "../models/Subject";
 class SubjectController {
   async store(req, res) {
     try {
-      const { user_id, nome } = req.body;
       console.log('Request Body:', req.body);
-      const subject = await Subject.create({ user_id, nome });
+      const subject = await Subject.create({
+        ...req.body,
+        user_id: req.userId, // Usa o userId do middleware
+      });
       return res.json(subject);
     } catch (e) {
       console.error("Erro ao criar materia: ", e);
@@ -24,8 +26,8 @@ class SubjectController {
           errors: ["Tarefa nao existe"],
         });
       }
-      const { user_id, nome } = req.body;
-      const updatedSubject = await subject.update({ user_id, nome });
+      const { nome } = req.body;
+      const updatedSubject = await subject.update({nome });
       return res.json(updatedSubject);
 
     } catch (e) {
@@ -40,7 +42,7 @@ class SubjectController {
     const subject = await Subject.findAll({
       attributes: ['id', 'nome', 'user_id'],
       order: [
-        ["id", "DESC"]
+        ["id", "ASC"]
       ]
     });
     res.json(subject);
