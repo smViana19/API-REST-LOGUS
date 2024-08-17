@@ -67,8 +67,7 @@ class App {
     this.App.use(API_BASE_URL, homeRoutes);
     this.App.use(URL_USERS_ROUTE, userRoutes);
     this.App.use(URL_TOKENS_ROUTE, tokenRoutes);
-    this.App.use(URL_ALUNO_ROUTE, alunoRoutes);
-    this.App.use("/fotos/", fotoRoutes);
+    // this.App.use(URL_ALUNO_ROUTE, alunoRoutes);
     this.App.use(URL_TASKS_ROUTE, taskRoutes);
     this.App.use(URL_SUBJECTS_ROUTE, subjectRoutes);
     this.App.use(URl_SUBJECTS_MATERIALS_ROUTE, subjectMaterialRoutes);
