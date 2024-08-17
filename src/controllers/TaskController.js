@@ -3,7 +3,10 @@ import Task from "../models/Task";
 class TaskController {
   async store(req, res) {
     try {
-      const task = await Task.create(req.body);
+      const task = await Task.create({
+        ...req.body,
+        user_id: req.userId, // Usa o userId do middleware
+      });
       const taskWithUser = await Task.findByPk(task.id, { include: "user" });
       return res.json(taskWithUser);
     } catch (e) {
