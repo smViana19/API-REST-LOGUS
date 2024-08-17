@@ -15,6 +15,14 @@ import fotoRoutes from "./routes/fotoRoutes";
 import taskRoutes from "./routes/taskRoutes";
 import subjectRoutes from "./routes/subjectRoutes";
 import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
+import {
+  API_BASE_URL,
+  URL_ALUNO_ROUTE, URl_SUBJECTS_MATERIALS_ROUTE,
+  URL_SUBJECTS_ROUTE,
+  URL_TASKS_ROUTE,
+  URL_TOKENS_ROUTE,
+  URL_USERS_ROUTE
+} from "./utils/RoutesUtils";
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -56,14 +64,14 @@ class App {
 
   routes() {
     //metodo das rotas
-    this.App.use("/", homeRoutes);
-    this.App.use("/users/", userRoutes);
-    this.App.use("/tokens/", tokenRoutes);
-    this.App.use("/alunos/", alunoRoutes);
+    this.App.use(API_BASE_URL, homeRoutes);
+    this.App.use(URL_USERS_ROUTE, userRoutes);
+    this.App.use(URL_TOKENS_ROUTE, tokenRoutes);
+    this.App.use(URL_ALUNO_ROUTE, alunoRoutes);
     this.App.use("/fotos/", fotoRoutes);
-    this.App.use("/tasks/", taskRoutes);
-    this.App.use("/subjects/", subjectRoutes);
-    this.App.use("/subject-materials/", subjectMaterialRoutes);
+    this.App.use(URL_TASKS_ROUTE, taskRoutes);
+    this.App.use(URL_SUBJECTS_ROUTE, subjectRoutes);
+    this.App.use(URl_SUBJECTS_MATERIALS_ROUTE, subjectMaterialRoutes);
   }
 }
 
