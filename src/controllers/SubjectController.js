@@ -48,6 +48,22 @@ class SubjectController {
     res.json(subject);
   }
 
+  async show(req, res) {
+    try {
+      const subject = await Subject.findByPk(req.params.id);
+      if (!subject) {
+        return res.status(404).json({
+          errors: ["Matéria não encontrada."],
+        });
+      }
+      return res.json(subject);
+    } catch (e) {
+      console.error("Erro ao obter matéria:", e);
+      return res.status(400).json({
+        errors: ["Erro ao obter matéria"],
+      });
+    }
+  }
 
   async delete(req, res) {
     try {

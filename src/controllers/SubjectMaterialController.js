@@ -1,14 +1,37 @@
-
 import SubjectMaterial from "../models/SubjectMaterial";
+import User from "../models/User";
+import Subject from "../models/Subject";
 
 
 class SubjectMaterialController {
   async store(req, res) {
     try {
+
+      const {subject_id, ...rest} = req.body;
+      if (!subject_id) {
+        return res.status(400).json({
+          errors: ["Subject ID é necessário."],
+        });
+      }
+
       console.log('Request Body:', req.body);
-      const subjectMaterial = await SubjectMaterial.create(req.body);
+      const subjectMaterial = await SubjectMaterial.create({
+        ...rest,
+        user_id: req.userId,
+        subject_id: subject_id || req.body.subject_id
+      });
       const subjectMaterialWithAssociations = await SubjectMaterial.findByPk(subjectMaterial.id, {
-        include: ["user", "subject"]
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ["id", "email", "role"]
+          },
+          {
+            model: Subject,
+            as: "subject"
+          },
+        ]
       });
       return res.json(subjectMaterialWithAssociations);
     } catch (e) {
@@ -48,6 +71,7 @@ class SubjectMaterialController {
     });
     res.json(subjectMaterial);
   }
+
 //TODO SHOW
 
   async delete(req, res) {
