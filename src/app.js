@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { resolve } from "path";
+import {resolve} from "path";
 
 dotenv.config();
 import "./database";
@@ -10,20 +10,25 @@ import helmet from "helmet";
 import homeRoutes from "./routes/homeRoutes";
 import userRoutes from "./routes/userRoutes";
 import tokenRoutes from "./routes/tokenRoutes";
-import alunoRoutes from "./routes/alunoRoutes";
-import fotoRoutes from "./routes/fotoRoutes";
+
 import taskRoutes from "./routes/taskRoutes";
 import subjectRoutes from "./routes/subjectRoutes";
 import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
 import {
   API_BASE_URL,
-  URL_ALUNO_ROUTE, URL_SCHOOL_YEAR_ROUTE, URl_SUBJECTS_MATERIALS_ROUTE,
+  URL_EDUCATION_LEVEL_ROUTE,
+  URL_GRADE_ROUTE, URL_SCHOOL_YEAR_GRADE_ROUTE,
+  URL_SCHOOL_YEAR_ROUTE,
+  URl_SUBJECTS_MATERIALS_ROUTE,
   URL_SUBJECTS_ROUTE,
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
   URL_USERS_ROUTE
 } from "./utils/RoutesUtils";
 import schoolYearRoutes from "./routes/schoolYearRoutes";
+import educationLevelRoutes from "./routes/educationLevelRoutes";
+import gradeRoutes from "./routes/gradeRoutes";
+import schoolYearGradeRoutes from "./routes/schoolYearGradeRoutes";
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -46,6 +51,7 @@ const corOptions = {
     }
   },
 };
+
 class App {
   constructor() {
     //atributos
@@ -58,7 +64,7 @@ class App {
     this.App.use(cors(corOptions));
     this.App.use(helmet());
     //metodo das middlewares
-    this.App.use(express.urlencoded({ extended: true })); //configuracao do express
+    this.App.use(express.urlencoded({extended: true})); //configuracao do express
     this.App.use(express.json());
     this.App.use(express.static(resolve(__dirname, "uploads")));
   }
@@ -73,6 +79,9 @@ class App {
     this.App.use(URL_SUBJECTS_ROUTE, subjectRoutes);
     this.App.use(URl_SUBJECTS_MATERIALS_ROUTE, subjectMaterialRoutes);
     this.App.use(URL_SCHOOL_YEAR_ROUTE, schoolYearRoutes)
+    this.App.use(URL_EDUCATION_LEVEL_ROUTE, educationLevelRoutes)
+    this.App.use(URL_GRADE_ROUTE, gradeRoutes)
+    this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
   }
 }
 
