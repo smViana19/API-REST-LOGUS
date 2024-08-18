@@ -15,7 +15,7 @@ export default class EducationLevel extends Model {
         },
         descricao: {
           type: Sequelize.STRING,
-          defaultValue: ""
+          defaultValue: null
         },
       },
       {
