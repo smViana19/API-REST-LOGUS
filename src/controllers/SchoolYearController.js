@@ -9,6 +9,7 @@ class SchoolYearController {
     } catch (e) {
       console.error("erro: ", e)
       return res.status(400).json({
+        status: 400,
         errors: ["Erro ao criar o ano escolar."],
       })
     }
@@ -25,6 +26,7 @@ class SchoolYearController {
     } catch (e) {
       console.error("erro: ", e)
       return res.status(400).json({
+        status: 400,
         errors: ["Erro ao listar os anos escolares."]
       })
     }
