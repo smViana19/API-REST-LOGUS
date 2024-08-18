@@ -6,7 +6,6 @@ import Subject from "../models/Subject";
 class SubjectMaterialController {
   async store(req, res) {
     try {
-
       const {subject_id, ...rest} = req.body;
       if (!subject_id) {
         return res.status(400).json({
