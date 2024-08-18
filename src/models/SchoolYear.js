@@ -8,7 +8,7 @@ export default class SchoolYear extends Model {
           validate: {
             isInt: true,
             len: [4, 4],
-            msg: "Ano inválido."
+
           },
         },
         data_inicio: {
