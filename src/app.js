@@ -17,12 +17,13 @@ import subjectRoutes from "./routes/subjectRoutes";
 import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
 import {
   API_BASE_URL,
-  URL_ALUNO_ROUTE, URl_SUBJECTS_MATERIALS_ROUTE,
+  URL_ALUNO_ROUTE, URL_SCHOOL_YEAR_ROUTE, URl_SUBJECTS_MATERIALS_ROUTE,
   URL_SUBJECTS_ROUTE,
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
   URL_USERS_ROUTE
 } from "./utils/RoutesUtils";
+import schoolYearRoutes from "./routes/schoolYearRoutes";
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -71,6 +72,7 @@ class App {
     this.App.use(URL_TASKS_ROUTE, taskRoutes);
     this.App.use(URL_SUBJECTS_ROUTE, subjectRoutes);
     this.App.use(URl_SUBJECTS_MATERIALS_ROUTE, subjectMaterialRoutes);
+    this.App.use(URL_SCHOOL_YEAR_ROUTE, schoolYearRoutes)
   }
 }
 
