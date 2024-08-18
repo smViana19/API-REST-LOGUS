@@ -9,4 +9,6 @@ export const URL_SUBJECTS_ROUTE = "/materias/"
 export const URl_SUBJECTS_MATERIALS_ROUTE = "/materias/material/"
 
 export const URL_SCHOOL_YEAR_ROUTE = "/admin/ano-escolar/"
-
+export const URL_EDUCATION_LEVEL_ROUTE = "/admin/nivel-ensino/"
+export const URL_GRADE_ROUTE = "/admin/serie/"
+export const URL_SCHOOL_YEAR_GRADE_ROUTE = "/admin/serie/turma/"
