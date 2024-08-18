@@ -6,9 +6,14 @@ import Foto from "../models/Foto";
 import Task from "../models/Task";
 import Subject from "../models/Subject";
 import SubjectMaterial from "../models/SubjectMaterial";
+import SchoolYear from "../models/SchoolYear";
+import EducationLevel from "../models/EducationLevel";
+import Post from "../models/Post";
+import Grade from "../models/Grade";
+import SchoolYearGrade from "../models/SchoolYearGrade";
 
 //se caso tiver mais model importa e colocar nessa lista
-const models = [Aluno, User, Foto, Task, Subject, SubjectMaterial];
+const models = [Aluno, User, Foto, Task, Subject, SubjectMaterial, SchoolYear, EducationLevel, Post, Grade, SchoolYearGrade];
 
 const connection = new Sequelize(databaseConfig);
 
