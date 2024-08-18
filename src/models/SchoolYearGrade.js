@@ -11,7 +11,7 @@ export default class SchoolYearGrade extends Model {
       {
         sequelize,
         modelName: "SchoolYearGrade",
-        tableName: "ano_series",
+        tableName: "anos_series",
         timestamps: false
       },
     );
