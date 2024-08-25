@@ -29,6 +29,6 @@ export default class Grade extends Model {
   }
   static associate(models) {
     this.belongsTo(models.EducationLevel, { foreignKey: 'nivel_educacional_id', as: 'niveis_escolares' });
-    this.hasMany(models.SubjectMaterial, { foreignKey: "serie_id", as: "serie" });
+    // this.hasMany(models.SubjectMaterial, { foreignKey: "serie_id", as: "serie" });
   }
 }
