@@ -6,7 +6,7 @@ export default class SubmitActivity extends Model {
       {
         file: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
           validate: {
             notEmpty: {
               msg: "Arquivo não pode estar vazio",

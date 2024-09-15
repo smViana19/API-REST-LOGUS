@@ -38,7 +38,7 @@ export default class SubjectMaterial extends Model {
           defaultValue: "",
           validate: {
             len: {
-              args: [1, 255],
+              args: [0, 255],
               msg: "Tamanho do texto invalido"
             },
           },
