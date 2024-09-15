@@ -1,4 +1,4 @@
-import Sequelize, { Model } from "sequelize";
+import Sequelize, { Model } from 'sequelize';
 
 export default class SubjectMaterial extends Model {
   static init(sequelize) {
@@ -43,7 +43,6 @@ export default class SubjectMaterial extends Model {
             },
           },
         },
-        //TODO ARQUIVOS
         data_entrega: {
           type: Sequelize.DATE,
           allowNull: true,
@@ -51,15 +50,17 @@ export default class SubjectMaterial extends Model {
       },
       {
         sequelize,
-        modelName: "SubjectMaterial",
-        tableName: "subjects_material",
-        timestamps: true, // Esta opção habilita os campos createdAt e updatedAt
-      },
+        modelName: 'SubjectMaterial',
+        tableName: 'subjects_material',
+        timestamps: true,
+      }
     );
     return this;
   }
+
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
-    this.belongsTo(models.Subject, { foreignKey: "subject_id", as: "subject" });
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+    this.belongsTo(models.Subject, { foreignKey: 'subject_id', as: 'subject' });
+    this.hasMany(models.SubmitActivity, { foreignKey: 'subject_material_id', as: 'submits' });
   }
 }

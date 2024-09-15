@@ -14,6 +14,8 @@ import tokenRoutes from "./routes/tokenRoutes";
 import taskRoutes from "./routes/taskRoutes";
 import subjectRoutes from "./routes/subjectRoutes";
 import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
+import submitActivityRoutes from "./routes/submitActivityRoutes";
+
 import {
   API_BASE_URL,
   URL_EDUCATION_LEVEL_ROUTE,
@@ -23,7 +25,8 @@ import {
   URL_SUBJECTS_ROUTE,
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
-  URL_USERS_ROUTE
+  URL_USERS_ROUTE,
+  URl_SUBMIT_ACTIVITY_ROUTE
 } from "./utils/RoutesUtils";
 import schoolYearRoutes from "./routes/schoolYearRoutes";
 import educationLevelRoutes from "./routes/educationLevelRoutes";
@@ -82,6 +85,7 @@ class App {
     this.App.use(URL_EDUCATION_LEVEL_ROUTE, educationLevelRoutes)
     this.App.use(URL_GRADE_ROUTE, gradeRoutes)
     this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
+    this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes); 
   }
 }
 

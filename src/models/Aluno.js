@@ -73,5 +73,6 @@ export default class Aluno extends Model {
 
   static associate(models) {
     this.hasMany(models.Foto, { foreignKey: 'aluno_id' });
+    this.hasMany(models.SubmitActivity, {foreignKey: 'aluno_id', as: 'submits'})
   }
 }
