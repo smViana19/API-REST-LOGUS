@@ -1,7 +1,7 @@
 
 class HomeController {
   async index(req, res) {
-    res.json('Index');
+    res.json('Voce entrou na api com sucesso! Para acessar as demais rotas consulte a documentação.');
   }
 }
 
