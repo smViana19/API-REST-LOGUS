@@ -6,7 +6,9 @@ const router = new Router;
 
 
 router.post('/', schoolYearGradeController.store);
-// router.post('/', schoolYearGradeController.index);
+router.get('/', schoolYearGradeController.index);
+router.put('/:id', schoolYearGradeController.update);
+router.put('/:id', schoolYearGradeController.delete);
 
 
 export default router;

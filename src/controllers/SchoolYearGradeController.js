@@ -38,6 +38,54 @@ class SchoolYearGradeController {
       });
     }
   }
+
+  async index(req, res) {
+    const yearGrade = await SchoolYearGrade.findAll()
+    return res.json({
+      status: 200,
+      yearGrade
+    })
+  }
+
+  async update(req, res) {
+    try {
+      const yearGrade = await SchoolYearGrade.findByPk(req.params.id);
+      if (!yearGrade) {
+        return res.status(400).json({
+          errors: ["Turma não encontrada."]
+        });
+      }
+      const newYearGrade = await yearGrade.update(req.body);
+      const { id, turma, ano_escolar_id, serie_id } = newYearGrade;
+      return res.json({id, turma, ano_escolar_id, serie_id})
+    } catch (e) {
+      console.error("Erro ao editar a turma: ", e);
+      return res.status(400).json({
+        errors: ["Erro ao editar turma"]
+      })
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const yearGrade = await SchoolYearGrade.findByPk(req.params.id);
+      if (!yearGrade) {
+        return res.status(400).json({
+          errors: ["Turma não encontrada."]
+        });
+      }
+      await yearGrade.destroy();
+      return res.json({
+        message: ["Turma deletada com sucesso."]
+      })
+    } catch (e) {
+      console.error("Erro ao excluir turma", e);
+      return res.status(400).json({
+        errors: ["Erro ao excluir turma"]
+      })
+    }
+  }
+
 }
 
 export default new SchoolYearGradeController();
