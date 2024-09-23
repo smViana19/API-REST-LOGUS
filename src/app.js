@@ -85,7 +85,7 @@ class App {
     this.App.use(URL_EDUCATION_LEVEL_ROUTE, educationLevelRoutes)
     this.App.use(URL_GRADE_ROUTE, gradeRoutes)
     this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
-    this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes); 
+    this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes);
   }
 }
 
