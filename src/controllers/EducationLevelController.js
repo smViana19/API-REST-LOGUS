@@ -63,9 +63,9 @@ class EducationLevelController {
       await educationLevel.destroy();
       return res.json({message: "Deletado com sucesso"})
     } catch (error) {
-      console.error("Error excluir o nivel:", error);
+      console.error("Error ao excluir o nivel:", error);
       return res.status(400).json({
-        error: "Error excluir o nivel",
+        error: "Error ao excluir o nivel",
       });
     }
   }
