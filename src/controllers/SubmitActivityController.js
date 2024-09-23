@@ -3,26 +3,33 @@ import SubmitActivity from '../models/SubmitActivity';
 class SubmitActivityController {
   async store(req, res) {
     try {
-      const {user_id, subject_material_id, data_entrega} = req.body;
+      const { user_id, subject_material_id } = req.body;
 
       if (!req.files || req.files.length === 0) {
-        return res.status(400).json({error: 'Arquivos são obrigatórios para a submissão.'});
+        return res.status(400).json({
+          errors: "Selecione um ou mais arquivos para a entrega"
+        });
       }
 
       const submissions = await Promise.all(
         req.files.map((file) => {
           return SubmitActivity.create({
-            file: file.filename,  // O nome do arquivo
-            data_entrega,
+            file: file.filename,
+            data_entrega: new Date(),
             user_id,
             subject_material_id,
           });
         })
       );
 
-      return res.status(201).json(submissions);
+      return res.status(201).json({
+        status: 201,
+        message: "Entregue com sucesso.",
+        submissions
+      });
     } catch (error) {
-      return res.status(400).json({error: error.message});
+      console.error(error)
+      return res.status(400).json({errors: "Erro ao entregar"});
     }
   }
 
