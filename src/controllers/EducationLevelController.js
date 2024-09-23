@@ -30,7 +30,7 @@ class EducationLevelController {
       if (!educationLevel) {
         return res.status(404).json({error: "Nivel não encontrado."})
       }
-      return res.json({educationLevel})
+      return res.json(educationLevel)
     } catch (error) {
       console.error("Erro ao obter nivel de educação: ", error)
       return res.json({error: "Erro ao obter nivel de educação"})
