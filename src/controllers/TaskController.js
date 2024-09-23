@@ -7,7 +7,7 @@ class TaskController {
         ...req.body,
         user_id: req.userId, // Usa o userId do middleware
       });
-      const taskWithUser = await Task.findByPk(task.id, { include: "user" });
+      const taskWithUser = await Task.findByPk(task.id, {include: "user"});
       return res.json(taskWithUser);
     } catch (e) {
       console.error("Erro ao criar tarefa:", e);
@@ -26,14 +26,20 @@ class TaskController {
         });
       }
       const newTask = await task.update(req.body);
-      const { id, titulo, categoria, descricao, urgencia } = newTask;
-      return res.json({ id, titulo, categoria, descricao, urgencia });
+      const {id, titulo, categoria, descricao, urgencia} = newTask;
+      return res.json({id, titulo, categoria, descricao, urgencia});
     } catch (e) {
       console.error("Error editar a tarefa:", e);
       return res.status(400).json({
         errors: ["Error ao editar tarefa"],
       });
     }
+  }
+
+  async index(req, res) {
+  }
+
+  async show(req, res) {
   }
 
   async delete(req, res) {

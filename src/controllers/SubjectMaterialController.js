@@ -30,7 +30,7 @@ class SubjectMaterialController {
           {
             model: Subject,
             as: "subject",
-            attributes:["id", "nome", "user_id"]
+            attributes: ["id", "nome", "user_id"]
           },
         ]
       });
@@ -63,31 +63,31 @@ class SubjectMaterialController {
     }
   }
 
-async index(req, res){
-  try{
-    const { subject_id } = req.params;
+  async index(req, res) {
+    try {
+      const {subject_id} = req.params;
 
-    if (!subject_id){
+      if (!subject_id) {
+        return res.status(400).json({
+          errors: ["Subject ID é necessário para listar as atividades."],
+        })
+      }
+      const subjectMaterials = await SubjectMaterial.findAll({
+        attributes: ["subject_id", "id", "nome", "pontos", "categoria", "detalhes", "data_entrega"],
+        where: {subject_id},
+        order: [["id", "DESC"]]
+      })
+      return res.json(subjectMaterials)
+    } catch (e) {
+      console.error("Erro ao listar atividades: ", e)
       return res.status(400).json({
-        errors: ["Subject ID é necessário para listar as atividades."],
+        erros: ["Erro ao listar atividades"],
       })
     }
-    const subjectMaterials = await SubjectMaterial.findAll({
-      attributes: ["subject_id","id", "nome", "pontos", "categoria", "detalhes", "data_entrega"],
-      where: {subject_id},
-      order: [["id", "DESC"]]
-    })
-    return res.json(subjectMaterials)
-  } catch (e) {
-    console.error("Erro ao listar atividades: ", e)
-    return res.status(400).json({
-      erros: ["Erro ao listar atividades"],
-    })
-  }
   }
 
-
-//TODO SHOW
+  async show(req, res) {
+  }
 
   async delete(req, res) {
     try {

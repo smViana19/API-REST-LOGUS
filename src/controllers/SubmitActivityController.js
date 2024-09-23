@@ -3,7 +3,7 @@ import SubmitActivity from '../models/SubmitActivity';
 class SubmitActivityController {
   async store(req, res) {
     try {
-      const { user_id, subject_material_id } = req.body;
+      const {user_id, subject_material_id} = req.body;
 
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({
@@ -32,6 +32,21 @@ class SubmitActivityController {
       return res.status(400).json({errors: "Erro ao entregar"});
     }
   }
+
+  async index(req, res) {
+  }
+
+  async show(req, res) {
+
+  }
+
+  async update(req, res) {
+  }
+
+  async delete(req, res) {
+
+  }
+
 
 }
 
