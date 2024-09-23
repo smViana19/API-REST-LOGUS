@@ -16,6 +16,7 @@ export default class SubmitActivity extends Model {
         data_entrega: {
           type: Sequelize.DATE,
           allowNull: false,
+          defaultValue: Sequelize.NOW
         },
       },
       {
@@ -23,7 +24,7 @@ export default class SubmitActivity extends Model {
         modelName: 'SubmitActivity',
         tableName: 'submit_activity',
         timestamps: true,
-        underscored: true, 
+        underscored: true,
       }
     );
     return this;
