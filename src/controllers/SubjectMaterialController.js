@@ -63,18 +63,6 @@ class SubjectMaterialController {
     }
   }
 
-  /*async index(req, res) {
-    const subjectMaterial = await SubjectMaterial.findAll({
-      attributes: ["subject_id","id", "nome", "pontos", "categoria", "detalhes", "data_entrega"],
-//      where: { subject_id:},
-      order: [
-        ["id", "DESC"]
-      ]
-    });
-    res.json(subjectMaterial);
-  }
-*/
-
 async index(req, res){
   try{
     const { subject_id } = req.params;
