@@ -6,7 +6,9 @@ import multerConfig from '../config/multerConfig';
 const router = express.Router();
 const upload = multer(multerConfig);
 
-// Rota para submissão de múltiplos arquivos
 router.post('/', upload.array('files', 5), SubmitActivityController.store);
+router.get('/:subject_material_id', SubmitActivityController.index )
+router.get('/:id', SubmitActivityController.show )
+
 
 export default router;
