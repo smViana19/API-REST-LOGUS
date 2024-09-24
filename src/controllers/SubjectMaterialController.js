@@ -87,6 +87,18 @@ class SubjectMaterialController {
   }
 
   async show(req, res) {
+    try {
+      const subject = await SubjectMaterial.findByPk(req.params.id);
+      if (!subject) {
+        return res.status(400).json({
+          errors: ["Material nao existe"],
+        });
+      }
+      return res.status(200).json(subject)
+    } catch (error) {
+      console.error("Erro ao tentar sincronizar e listar os dados tente novamente.", error)
+      return res.status(500).json({error: "Erro ao tentar sincronizar e listar os dados tente novamente."})
+    }
   }
 
   async delete(req, res) {

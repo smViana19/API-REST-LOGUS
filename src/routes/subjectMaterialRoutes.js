@@ -13,5 +13,4 @@ router.put('/:id', loginRequired, roleMiddleware(["estudante","professor", "dire
 router.delete('/:id', loginRequired, roleMiddleware(["professor","diretor"]), subjectMaterialController.delete);
 
 
-// TODO: Implementar a rota show para obter um material específico
 export default router;
