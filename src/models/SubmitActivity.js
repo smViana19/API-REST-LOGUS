@@ -18,6 +18,11 @@ export default class SubmitActivity extends Model {
           allowNull: false,
           defaultValue: Sequelize.NOW
         },
+        status: {
+          type: Sequelize.ENUM('ATRIBUIDO', 'ENTREGUE', 'PENDENTE'),
+          allowNull: false,
+          defaultValue: 'ATRIBUIDO'
+        }
       },
       {
         sequelize,
