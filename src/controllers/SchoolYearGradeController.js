@@ -40,11 +40,17 @@ class SchoolYearGradeController {
   }
 
   async index(req, res) {
-    const yearGrade = await SchoolYearGrade.findAll()
-    return res.json({
-      status: 200,
-      yearGrade
-    })
+    try{
+      const yearGrade = await SchoolYearGrade.findAll()
+      return res.json({
+        status: 200,
+        yearGrade
+      })
+    } catch(error) {
+      console.error("Não foi possivel sincronizar e listar os dados.", error)
+      return res.status(500).json({error: "Não foi possivel sincronizar e listar os dados."})
+    }
+
   }
 
   async update(req, res) {
