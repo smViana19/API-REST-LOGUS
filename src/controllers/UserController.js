@@ -36,7 +36,8 @@ class UserController {
       const {id, nome, email, role} = user;
       return res.json({id, nome, email, role});
     } catch (e) {
-      return res.json(null);
+      console.error(e)
+      return res.status(500).json("Erro ao tentar mostrar o usuario.");
     }
   }
 
@@ -53,7 +54,7 @@ class UserController {
       const {id, nome, email, role} = novosDados;
       return res.json({id, nome, email, role});
     } catch (e) {
-      return res.status(400).json({
+      return res.status(500).json({
         errors: e.errors.map((err) => err.message),
       });
     }
@@ -71,7 +72,7 @@ class UserController {
       await user.destroy();
       return res.json(null);
     } catch (e) {
-      return res.status(400).json({
+      return res.status(500).json({
         errors: e.errors.map((err) => err.message),
       });
     }
