@@ -1,38 +1,29 @@
 const bcryptjs = require('bcryptjs');
+const { faker } = require('@faker-js/faker'); // Importando o faker
 
 "use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.bulkInsert(
-      "users",
-      [
-        {
-          nome: "Marcela",
-          email: "marcelinha@gmail.com",
-          password_hash: await bcryptjs.hash('123456', 8),
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          nome: "Joana ",
-          email: "joana@gmail.com",
-          password_hash: await bcryptjs.hash('654321', 8),
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          nome: "Ana Julia",
-          email: "anaju@gmail.com",
-          password_hash: await bcryptjs.hash('321654', 8),
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-      ],
-      {},
-    );
+    const users = [];
+    const numberOfUsers = 10; // Defina quantos usuários deseja criar
+
+    for (let i = 0; i < numberOfUsers; i++) {
+      users.push({
+        nome: faker.person.fullName(),
+        email: faker.internet.email(),
+        password_hash: await bcryptjs.hash('123456', 8), // Você pode também gerar senhas aleatórias
+        role: faker.helpers.arrayElement(['estudante', 'professor']),
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
+    }
+
+    await queryInterface.bulkInsert("users", users, {});
   },
 
-  async down() {},
+  async down(queryInterface) {
+    await queryInterface.bulkDelete("users", null, {});
+  },
 };
