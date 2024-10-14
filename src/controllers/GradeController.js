@@ -36,7 +36,7 @@ class GradeController {
     try {
       const grade = await Grade.findByPk(req.params.id);
       if (!grade) {
-        return res.status(404).json({error: "Serie não encontrada."})
+        return res.status(404).json({error: "Série não encontrada."})
       }
       return res.json(grade)
 

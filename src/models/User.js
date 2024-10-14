@@ -65,7 +65,7 @@ export default class User extends Model {
     this.hasMany(models.Subject, { foreignKey: 'user_id', as: 'subjects' });
     this.hasMany(models.SubjectMaterial, { foreignKey: "user_id", as: "materials" });
     this.hasMany(models.SubmitActivity, { foreignKey: 'user_id', as: 'submittedActivities' }); // Adicionando relação com SubmitActivity
-
+    this.hasMany(models.SchoolYearGrade, { foreignKey: 'user_id', as: 'grades'});
   }
 
   passwordValida(password) {

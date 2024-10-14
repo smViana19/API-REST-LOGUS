@@ -1,6 +1,7 @@
 import SchoolYearGrade from "../models/SchoolYearGrade";
 import Grade from "../models/Grade";
 import SchoolYear from "../models/SchoolYear";
+import User from "../models/User";
 
 class SchoolYearGradeController {
   async store(req, res) {
@@ -15,15 +16,21 @@ class SchoolYearGradeController {
         return res.status(400).json({error: 'ID de ano escolar inválido.'});
       }
 
+      const user = await User.findByPk(req.body.user_id);
+      if (!user) {
+        return res.status(404).json({error: 'ID de usuario inválido'});
+      }
       const schoolYearGrade = await SchoolYearGrade.create({
         turma: req.body.turma,
         serie_id: req.body.serie_id,
-        ano_escolar_id: req.body.ano_escolar_id
+        ano_escolar_id: req.body.ano_escolar_id,
+        user_id: req.body.user_id
       });
       const schoolYearGradeWithAssociations = await SchoolYearGrade.findByPk(schoolYearGrade.id, {
         include: [
           {model: Grade, as: 'serie'},
-          {model: SchoolYear, as: 'ano_escolar'}
+          {model: SchoolYear, as: 'ano_escolar'},
+          {model: User, as: 'user'}
         ]
       });
       return res.json({
@@ -41,6 +48,7 @@ class SchoolYearGradeController {
 
   async index(req, res) {
     try{
+      console.log("teste schoolYearGrade",req.body)
       const yearGrade = await SchoolYearGrade.findAll()
       return res.json({
         status: 200,

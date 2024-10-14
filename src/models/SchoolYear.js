@@ -13,16 +13,11 @@ export default class SchoolYear extends Model {
         },
         data_inicio: {
           type: Sequelize.DATE,
-          validate: {
             allowNull: true,
-          },
-
         },
         data_fim: {
           type: Sequelize.DATE,
-          validate: {
             allowNull: true,
-          },
         },
       },
       {

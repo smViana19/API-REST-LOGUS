@@ -21,5 +21,7 @@ export default class SchoolYearGrade extends Model {
   static associate(models) {
     this.belongsTo(models.Grade, { foreignKey: 'serie_id', as: 'serie' });
     this.belongsTo(models.SchoolYear, { foreignKey: 'ano_escolar_id', as: 'ano_escolar' });
+    this.belongsTo(models.User, {foreignKey: 'user_id', as: 'user'});
+
   }
 }
