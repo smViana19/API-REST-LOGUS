@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
+import { where } from "sequelize";
 import User from "../models/User";
 
 class UserController {
   async store(req, res) {
     try {
       const novoUser = await User.create(req.body);
-      const {id, nome, email, role} = novoUser;
+      const { id, nome, email, role } = novoUser;
 
-      return res.json({id, nome, email, role}); //adicionado role
+      return res.json({ id, nome, email, role });
     } catch (e) {
       console.log("error: ", e)
       return res.status(400).json({
@@ -33,8 +34,8 @@ class UserController {
   async show(req, res) {
     try {
       const user = await User.findByPk(req.params.id);
-      const {id, nome, email, role} = user;
-      return res.json({id, nome, email, role});
+      const { id, nome, email, role } = user;
+      return res.json({ id, nome, email, role });
     } catch (e) {
       console.error(e)
       return res.status(500).json("Erro ao tentar mostrar o usuario.");
@@ -51,8 +52,8 @@ class UserController {
       }
 
       const novosDados = await user.update(req.body);
-      const {id, nome, email, role} = novosDados;
-      return res.json({id, nome, email, role});
+      const { id, nome, email, role } = novosDados;
+      return res.json({ id, nome, email, role });
     } catch (e) {
       return res.status(500).json({
         errors: e.errors.map((err) => err.message),
@@ -75,6 +76,16 @@ class UserController {
       return res.status(500).json({
         errors: e.errors.map((err) => err.message),
       });
+    }
+  }
+
+  async count(req, res) {
+    try {
+      const count = await User.count({ where: { role: 'estudante' } });
+      return res.status(200).json({ count })
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Erro ao contar usuarios." })
     }
   }
 }

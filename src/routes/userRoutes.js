@@ -13,6 +13,8 @@ router.get(
   roleMiddleware(["diretor"]),
   userController.index,
 );
+router.get("/count", loginRequired, roleMiddleware(["diretor"]), userController.count);
+
 router.get(
   "/:id",
   loginRequired,

@@ -26,12 +26,13 @@ import {
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
   URL_USERS_ROUTE,
-  URl_SUBMIT_ACTIVITY_ROUTE
+  URl_SUBMIT_ACTIVITY_ROUTE, URL_NOTE_ROUTE
 } from "./utils/RoutesUtils";
 import schoolYearRoutes from "./routes/schoolYearRoutes";
 import educationLevelRoutes from "./routes/educationLevelRoutes";
 import gradeRoutes from "./routes/gradeRoutes";
 import schoolYearGradeRoutes from "./routes/schoolYearGradeRoutes";
+import noteRoutes from "./routes/noteRoutes";
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -86,6 +87,7 @@ class App {
     this.App.use(URL_GRADE_ROUTE, gradeRoutes)
     this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
     this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes);
+    this.App.use(URL_NOTE_ROUTE, noteRoutes)
   }
 }
 

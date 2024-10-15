@@ -8,17 +8,17 @@ class SchoolYearGradeController {
     try {
       const serie = await Grade.findByPk(req.body.serie_id);
       if (!serie) {
-        return res.status(400).json({error: 'ID de série inválido.'});
+        return res.status(400).json({ error: 'ID de série inválido.' });
       }
 
       const schoolYear = await SchoolYear.findByPk(req.body.ano_escolar_id);
       if (!schoolYear) {
-        return res.status(400).json({error: 'ID de ano escolar inválido.'});
+        return res.status(400).json({ error: 'ID de ano escolar inválido.' });
       }
 
       const user = await User.findByPk(req.body.user_id);
       if (!user) {
-        return res.status(404).json({error: 'ID de usuario inválido'});
+        return res.status(404).json({ error: 'ID de usuario inválido' });
       }
       const schoolYearGrade = await SchoolYearGrade.create({
         turma: req.body.turma,
@@ -28,9 +28,9 @@ class SchoolYearGradeController {
       });
       const schoolYearGradeWithAssociations = await SchoolYearGrade.findByPk(schoolYearGrade.id, {
         include: [
-          {model: Grade, as: 'serie'},
-          {model: SchoolYear, as: 'ano_escolar'},
-          {model: User, as: 'user'}
+          { model: Grade, as: 'serie' },
+          { model: SchoolYear, as: 'ano_escolar' },
+          { model: User, as: 'user' }
         ]
       });
       return res.json({
@@ -47,16 +47,16 @@ class SchoolYearGradeController {
   }
 
   async index(req, res) {
-    try{
-      console.log("teste schoolYearGrade",req.body)
+    try {
+      console.log("teste schoolYearGrade", req.body)
       const yearGrade = await SchoolYearGrade.findAll()
       return res.json({
         status: 200,
         yearGrade
       })
-    } catch(error) {
+    } catch (error) {
       console.error("Não foi possivel sincronizar e listar os dados.", error)
-      return res.status(500).json({error: "Não foi possivel sincronizar e listar os dados."})
+      return res.status(500).json({ error: "Não foi possivel sincronizar e listar os dados." })
     }
 
   }
@@ -71,7 +71,7 @@ class SchoolYearGradeController {
       }
       const newYearGrade = await yearGrade.update(req.body);
       const { id, turma, ano_escolar_id, serie_id } = newYearGrade;
-      return res.json({id, turma, ano_escolar_id, serie_id})
+      return res.json({ id, turma, ano_escolar_id, serie_id })
     } catch (e) {
       console.error("Erro ao editar a turma: ", e);
       return res.status(400).json({

@@ -12,10 +12,11 @@ import Post from "../models/Post";
 import Grade from "../models/Grade";
 import SchoolYearGrade from "../models/SchoolYearGrade";
 import SubmitActivity from '../models/SubmitActivity';
+import Note from "../models/Note";
 
 
 //se caso tiver mais model importa e colocar nessa lista
-const models = [Aluno, User, Foto, Task, Subject, SubjectMaterial, SubmitActivity, SchoolYear, EducationLevel, Post, Grade, SchoolYearGrade];
+const models = [Aluno, User, Foto, Task, Subject, SubjectMaterial, SubmitActivity, SchoolYear, EducationLevel, Post, Grade, SchoolYearGrade, Note];
 
 const connection = new Sequelize(databaseConfig);
 
