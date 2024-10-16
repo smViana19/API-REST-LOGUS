@@ -1,4 +1,4 @@
-import { Router } from "express";
+import {Router} from "express";
 import userController from "../controllers/UserController";
 import loginRequired from "../middlewares/loginRequired";
 import roleMiddleware from "../middlewares/roleMiddleware";
@@ -13,21 +13,12 @@ router.get(
   roleMiddleware(["diretor"]),
   userController.index,
 );
-router.get("/count", loginRequired, roleMiddleware(["diretor"]), userController.count);
+router.get("/count", loginRequired, roleMiddleware(["diretor"]), userController.countStudents);
+router.get("/count/professores", loginRequired, roleMiddleware(["diretor"]), userController.countTeachers);
 
-router.get(
-  "/:id",
-  loginRequired,
-  roleMiddleware(["diretor"]),
-  userController.show,
-);
+router.get("/:id", loginRequired, roleMiddleware(["diretor"]), userController.show,);
 router.put("/:id", loginRequired, userController.update);
-router.delete(
-  "/:id", // Corrigido para aceitar ID na URL
-  loginRequired,
-  roleMiddleware(["diretor"]),
-  userController.delete,
-);
+router.delete("/:id", loginRequired, roleMiddleware(["diretor"]), userController.delete,);
 
 export default router;
 

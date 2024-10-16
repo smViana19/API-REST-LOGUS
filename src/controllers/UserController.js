@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { where } from "sequelize";
 import User from "../models/User";
 
 class UserController {
@@ -79,9 +78,18 @@ class UserController {
     }
   }
 
-  async count(req, res) {
+  async countStudents(req, res) {
     try {
       const count = await User.count({ where: { role: 'estudante' } });
+      return res.status(200).json({ count })
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Erro ao contar usuarios." })
+    }
+  }
+  async countTeachers(req, res) {
+    try {
+      const count = await User.count({ where: { role: 'professor' } });
       return res.status(200).json({ count })
     } catch (error) {
       console.error(error);
