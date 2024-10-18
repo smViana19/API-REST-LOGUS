@@ -80,7 +80,7 @@ class SubjectMaterialController {
       return res.json(subjectMaterials)
     } catch (e) {
       console.error("Erro ao listar atividades: ", e)
-      return res.status(400).json({
+      return res.status(500).json({
         erros: ["Erro ao listar atividades"],
       })
     }

@@ -6,15 +6,19 @@ import User from "../models/User";
 class SchoolYearGradeController {
   async store(req, res) {
     try {
+      if (!req.body.turma) {
+        return res.status(400).json({ error: 'Preencha o nome para a turma.'})
+      }
       const serie = await Grade.findByPk(req.body.serie_id);
       if (!serie) {
-        return res.status(400).json({ error: 'ID de série inválido.' });
+        return res.status(400).json({ error: 'Escolha uma serie' });
       }
 
       const schoolYear = await SchoolYear.findByPk(req.body.ano_escolar_id);
       if (!schoolYear) {
-        return res.status(400).json({ error: 'ID de ano escolar inválido.' });
+        return res.status(400).json({ error: 'Escolha um ano' });
       }
+
 
       const user = await User.findByPk(req.body.user_id);
       if (!user) {
@@ -35,6 +39,7 @@ class SchoolYearGradeController {
       });
       return res.json({
         status: 200,
+        msg: "Turma criada com sucesso!",
         schoolYearGradeWithAssociations
       });
     } catch (e) {
