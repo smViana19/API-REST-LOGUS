@@ -45,24 +45,32 @@ class SubjectMaterialController {
 
   async update(req, res) {
     try {
-      const subject = await SubjectMaterial.findByPk(req.params.id);
+      const subject = await SubjectMaterial.findByPk(req.params.id); // Busca o material pelo ID
       if (!subject) {
         return res.status(400).json({
-          errors: ["Material nao existe"],
+          errors: ["Material não existe"],
         });
       }
-      const newSubject = await SubjectMaterial.update(req.body);
-      const {id, nome, pontos, categoria, detalhes, data_entrega} = newSubject;
-      return res.json({id, nome, pontos, categoria, detalhes, data_entrega});
-
+  
+      // Atualiza o material utilizando o ID passado como parâmetro
+      await SubjectMaterial.update(req.body, {
+        where: { id: req.params.id },
+      });
+  
+      // Busca novamente o material atualizado
+      const updatedSubject = await SubjectMaterial.findByPk(req.params.id);
+  
+      const { id, nome, pontos, categoria, detalhes, data_entrega } = updatedSubject;
+      return res.json({ id, nome, pontos, categoria, detalhes, data_entrega });
+  
     } catch (e) {
       console.error("Erro ao editar material:", e);
       return res.status(400).json({
-        errors: ["Erro ao editar material"]
-      })
+        errors: ["Erro ao editar material"],
+      });
     }
   }
-
+  
   async index(req, res) {
     try {
       const {subject_id} = req.params;

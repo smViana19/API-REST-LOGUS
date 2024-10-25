@@ -5,6 +5,16 @@ class SubmitActivityController {
     try {
       const {user_id, subject_material_id} = req.body;
 
+      const existingSubmission = await SubmitActivity.findOne({
+        where: { user_id, subject_material_id }
+      });
+
+      if (existingSubmission) {
+        return res.status(400).json({
+          errors: "Você já enviou esta atividade."
+        });
+      }
+
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({
           errors: "Selecione um ou mais arquivos para a entrega"
@@ -89,6 +99,30 @@ class SubmitActivityController {
     } catch (error) {
       console.error("Erro ao excluir a entrega", error)
       return res.status(500).json({error: 'Erro ao excluir a entrega'});
+    }
+  }
+
+
+  async getByUserAndMaterial(req, res) {
+    try {
+      
+      const { user_id, subject_material_id } = req.query;
+      const submission = await SubmitActivity.findOne({
+        where: {
+          user_id,
+          subject_material_id
+        }
+      });
+  
+      if (!submission) {
+        return res.status(404).json({ message: 'Nenhuma entrega encontrada.' });
+      }
+  
+      return res.json(submission);
+    } catch (error) {
+
+      console.error("Erro ao buscar entrega: ", error);
+      return res.status(500).json({ error: "Erro ao buscar entrega." });
     }
   }
 
