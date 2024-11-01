@@ -7,7 +7,7 @@ class SchoolYearGradeController {
   async store(req, res) {
     try {
       if (!req.body.turma) {
-        return res.status(400).json({ error: 'Preencha o nome para a turma.'})
+        return res.status(400).json({ error: 'Preencha o nome para a turma.' })
       }
       const serie = await Grade.findByPk(req.body.serie_id);
       if (!serie) {
@@ -34,7 +34,6 @@ class SchoolYearGradeController {
         include: [
           { model: Grade, as: 'serie' },
           { model: SchoolYear, as: 'ano_escolar' },
-          { model: User, as: 'user' }
         ]
       });
       return res.json({
