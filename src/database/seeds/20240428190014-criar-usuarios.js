@@ -11,9 +11,9 @@ module.exports = {
 
     for (let i = 0; i < numberOfUsers; i++) {
       users.push({
-        nome: faker.person.fullName(),
-        email: faker.internet.email(),
-        password_hash: await bcryptjs.hash('123456', 8), // Você pode também gerar senhas aleatórias
+        nome: faker.person.firstName(),
+        email: faker.internet.email({ email: "aluno" }),
+        password_hash: await bcryptjs.hash('123456', 8),
         role: faker.helpers.arrayElement(['estudante', 'professor']),
         created_at: new Date(),
         updated_at: new Date(),
