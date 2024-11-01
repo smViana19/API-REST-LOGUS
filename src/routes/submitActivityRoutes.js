@@ -1,7 +1,6 @@
 
 import { Router } from "express";
 
-import express from 'express';
 import SubmitActivityController from '../controllers/SubmitActivityController';
 import multer from 'multer';
 import multerConfig from '../config/multerConfig';

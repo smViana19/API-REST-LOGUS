@@ -15,3 +15,4 @@ export const URL_EDUCATION_LEVEL_ROUTE = "/admin/nivel-ensino/"
 export const URL_GRADE_ROUTE = "/admin/serie/"
 export const URL_SCHOOL_YEAR_GRADE_ROUTE = "/admin/turma/"
 export const URL_NOTE_ROUTE = '/notas'
+export const URL_PERIOD_ROUTE = '/periodos'

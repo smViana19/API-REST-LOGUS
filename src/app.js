@@ -1,21 +1,11 @@
 import dotenv from "dotenv";
-import {resolve} from "path";
+import { resolve } from "path";
 
 dotenv.config();
 import "./database";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-
-import homeRoutes from "./routes/homeRoutes";
-import userRoutes from "./routes/userRoutes";
-import tokenRoutes from "./routes/tokenRoutes";
-
-import taskRoutes from "./routes/taskRoutes";
-import subjectRoutes from "./routes/subjectRoutes";
-import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
-import submitActivityRoutes from "./routes/submitActivityRoutes";
-
 import {
   API_BASE_URL,
   URL_EDUCATION_LEVEL_ROUTE,
@@ -26,13 +16,24 @@ import {
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
   URL_USERS_ROUTE,
-  URl_SUBMIT_ACTIVITY_ROUTE, URL_NOTE_ROUTE
+  URl_SUBMIT_ACTIVITY_ROUTE, URL_NOTE_ROUTE,
+  URL_PERIOD_ROUTE
 } from "./utils/RoutesUtils";
+
+import homeRoutes from "./routes/homeRoutes";
+import userRoutes from "./routes/userRoutes";
+import tokenRoutes from "./routes/tokenRoutes";
+import taskRoutes from "./routes/taskRoutes";
+import subjectRoutes from "./routes/subjectRoutes";
+import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
+import submitActivityRoutes from "./routes/submitActivityRoutes";
 import schoolYearRoutes from "./routes/schoolYearRoutes";
 import educationLevelRoutes from "./routes/educationLevelRoutes";
 import gradeRoutes from "./routes/gradeRoutes";
 import schoolYearGradeRoutes from "./routes/schoolYearGradeRoutes";
 import noteRoutes from "./routes/noteRoutes";
+import periodRoutes from './routes/periodRoutes';
+
 
 //PARA UTILIZAR A API
 const whiteList = [
@@ -68,7 +69,7 @@ class App {
     this.App.use(cors(corOptions));
     this.App.use(helmet());
     //metodo das middlewares
-    this.App.use(express.urlencoded({extended: true})); //configuracao do express
+    this.App.use(express.urlencoded({ extended: true })); //configuracao do express
     this.App.use(express.json());
     this.App.use(express.static(resolve(__dirname, "uploads")));
   }
@@ -88,6 +89,7 @@ class App {
     this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
     this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes);
     this.App.use(URL_NOTE_ROUTE, noteRoutes)
+    this.App.use(URL_PERIOD_ROUTE, periodRoutes)
   }
 }
 
