@@ -10,7 +10,7 @@ class AlunoController {
       ], //exibir por ordem decrescente
       include: {
         model: Foto,
-        attributes: ['url',"filename"],
+        attributes: ['url', "filename"],
       },
     });
     res.json(alunos);
@@ -45,7 +45,7 @@ class AlunoController {
         ], //exibir por ordem decrescente
         include: {
           model: Foto,
-          attributes: ['url',"filename"],
+          attributes: ['url', "filename"],
         },
       });
 
