@@ -6,8 +6,7 @@ import Subject from "../models/Subject";
 class SubjectMaterialController {
   async store(req, res) {
     try {
-      const {subject_id, ...rest} = req.body;
-      console.log('id materia: ', subject_id)
+      const { subject_id, ...rest } = req.body;
       if (!subject_id) {
         return res.status(400).json({
           errors: ["Subject ID é necessário."],
@@ -51,18 +50,18 @@ class SubjectMaterialController {
           errors: ["Material não existe"],
         });
       }
-  
+
       // Atualiza o material utilizando o ID passado como parâmetro
       await SubjectMaterial.update(req.body, {
         where: { id: req.params.id },
       });
-  
+
       // Busca novamente o material atualizado
       const updatedSubject = await SubjectMaterial.findByPk(req.params.id);
-  
+
       const { id, nome, pontos, categoria, detalhes, data_entrega } = updatedSubject;
       return res.json({ id, nome, pontos, categoria, detalhes, data_entrega });
-  
+
     } catch (e) {
       console.error("Erro ao editar material:", e);
       return res.status(400).json({
@@ -70,10 +69,10 @@ class SubjectMaterialController {
       });
     }
   }
-  
+
   async index(req, res) {
     try {
-      const {subject_id} = req.params;
+      const { subject_id } = req.params;
 
       if (!subject_id) {
         return res.status(400).json({
@@ -82,7 +81,7 @@ class SubjectMaterialController {
       }
       const subjectMaterials = await SubjectMaterial.findAll({
         attributes: ["subject_id", "id", "nome", "pontos", "categoria", "detalhes", "data_entrega"],
-        where: {subject_id},
+        where: { subject_id },
         order: [["id", "DESC"]]
       })
       return res.json(subjectMaterials)
@@ -91,6 +90,18 @@ class SubjectMaterialController {
       return res.status(500).json({
         erros: ["Erro ao listar atividades"],
       })
+    }
+  }
+  async getLastSubjectMaterials(req, res) {
+    try {
+      const subjectMaterials = await SubjectMaterial.findAll({
+        order: [['id', 'DESC']],
+        limit: 5
+      });
+      res.status(200).json(subjectMaterials)
+
+    } catch (error) {
+      return res.status(500).json({ erro: "Erro ao listar as atividades" });
     }
   }
 
@@ -105,7 +116,7 @@ class SubjectMaterialController {
       return res.status(200).json(subject)
     } catch (error) {
       console.error("Erro ao tentar sincronizar e listar os dados tente novamente.", error)
-      return res.status(500).json({error: "Erro ao tentar sincronizar e listar os dados tente novamente."})
+      return res.status(500).json({ error: "Erro ao tentar sincronizar e listar os dados tente novamente." })
     }
   }
 

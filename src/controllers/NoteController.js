@@ -129,6 +129,108 @@ class NoteController {
       return res.status(500).json({ error: "Erro ao buscar nota, tente novamente" });
     }
   }
+
+  async getAllSubjectsAndGrades(req, res) {
+    try {
+      const studentId = req.params.studentId;
+      const subjects = await Subject.findAll();
+      const periods = await Period.findAll();
+      const grades = await Note.findAll({
+        where: { user_id: studentId },
+        include: [
+          {
+            model: Subject,
+            as: 'subject',
+            attributes: ['nome'],
+          },
+          {
+            model: Period,
+            as: 'period',
+            attributes: ['name'],
+          },
+        ],
+      });
+      const result = subjects.map((subject) => {
+        // Criar um objeto de notas para cada trimestre
+        const subjectGrades = periods.map((period) => {
+          // Procurar a nota dessa matéria e período
+          const grade = grades.find(
+            (grade) => grade.subject_id === subject.id && grade.period_id === period.id
+          );
+          return {
+            period: period.name, // Nome do período (trimestre)
+            grade: grade ? grade.value : null, // Se não houver nota, retorna null
+          };
+        });
+
+        return {
+          subject: subject.nome,
+          grades: subjectGrades,
+        };
+      });
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ error: "Erro ao listar as materias e notas." })
+    }
+  }
+
+  async createOrUpdateNote(req, res) {
+    try {
+      const { studentId, subjectId, grades } = req.body;
+
+      // Verificar se grades foi enviado
+      if (!grades || !Array.isArray(grades) || grades.length === 0) {
+        return res.status(400).json({ error: "Nenhuma nota fornecida." });
+      }
+
+      for (const { periodId, grade } of grades) {
+        // Verificar se o período existe
+        const period = await Period.findByPk(Number(periodId));  // Garantir que o periodId seja numérico
+
+        if (!period) {
+          return res.status(404).json({ error: `Período (trimestre) com ID ${periodId} não encontrado.` });
+        }
+
+        // Verificar se a matéria existe
+        const subject = await Subject.findByPk(subjectId);
+
+        if (!subject) {
+          return res.status(404).json({ error: "Matéria não encontrada." });
+        }
+
+        // Verificar se a grade já existe
+        const existingGrade = await Note.findOne({
+          where: {
+            user_id: studentId,
+            subject_id: subjectId,
+            period_id: periodId
+          },
+        });
+
+        if (existingGrade) {
+          // Atualiza o valor da nota
+          existingGrade.value = grade;
+          await existingGrade.save();
+          return res.status(200).json({ message: "Nota atualizada com sucesso!" });
+        }
+
+        // Cria uma nova nota
+        await Note.create({
+          user_id: studentId,
+          subject_id: subjectId,
+          period_id: periodId,
+          value: grade
+        });
+      }
+
+      return res.status(201).json({ message: "Notas criadas ou atualizadas com sucesso!" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Erro ao criar ou atualizar nota." });
+    }
+  }
+
   async updateNote(req, res) {
     try {
       const note = await Note.findByPk(req.params.id);
