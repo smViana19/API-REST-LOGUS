@@ -17,7 +17,6 @@ export default class Note extends Model {
     return this;
   }
   static associate(models) {
-    this.belongsTo(models.SchoolYearGrade, { foreignKey: 'anos_series_id', as: 'turma' });
     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     this.belongsTo(models.Subject, { foreignKey: 'subject_id', as: 'subject' });
     this.belongsTo(models.Period, { foreignKey: 'period_id', as: 'period' });

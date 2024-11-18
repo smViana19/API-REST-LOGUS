@@ -1,4 +1,4 @@
-import {Router} from "express";
+import { Router } from "express";
 import userController from "../controllers/UserController";
 import loginRequired from "../middlewares/loginRequired";
 import roleMiddleware from "../middlewares/roleMiddleware";
@@ -7,12 +7,8 @@ const router = new Router();
 
 router.post("/", userController.store);
 
-router.get(
-  "/",
-  loginRequired,
-  roleMiddleware(["diretor"]),
-  userController.index,
-);
+router.get("/", loginRequired, roleMiddleware(["diretor"]), userController.index,);
+router.get("/alunos", loginRequired, roleMiddleware(["diretor"]), userController.getAllStudents);
 router.get("/count", loginRequired, roleMiddleware(["diretor"]), userController.countStudents);
 router.get("/count/professores", loginRequired, roleMiddleware(["diretor"]), userController.countTeachers);
 
