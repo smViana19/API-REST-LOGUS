@@ -12,7 +12,8 @@ export const URl_SUBMIT_ACTIVITY_ROUTE = "/materias/material/submit/"
 
 export const URL_SCHOOL_YEAR_ROUTE = "/admin/ano-escolar/"
 export const URL_EDUCATION_LEVEL_ROUTE = "/admin/nivel-ensino/"
-export const URL_GRADE_ROUTE = "/admin/serie/"
 export const URL_SCHOOL_YEAR_GRADE_ROUTE = "/admin/turma/"
-export const URL_NOTE_ROUTE = '/notas'
 export const URL_PERIOD_ROUTE = '/periodos'
+export const URL_CLASSES_ROUTE = '/turmas'
+export const URL_CLASSES_STUDENTS_ROUTE = '/turma-estudantes'
+export const URL_GRADE_ROUTE = '/grade'

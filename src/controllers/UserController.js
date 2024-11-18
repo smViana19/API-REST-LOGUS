@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
+import { where } from "sequelize";
 import User from "../models/User";
-import {sendEmail} from "../utils/mailUtils";
+import { sendEmail } from "../utils/mailUtils";
 
 class UserController {
 
@@ -8,7 +9,7 @@ class UserController {
     try {
       let { password } = req.body;
       let passGenerated = true;
-      if(!password) {
+      if (!password) {
         password = generatePassword();
         req.body.password = password;
         passGenerated = true;
@@ -16,13 +17,13 @@ class UserController {
 
       const novoUser = await User.create(req.body);
       const { id, nome, email, role } = novoUser;
-      if(passGenerated) {
+      if (passGenerated) {
         console.log("Enviando email para: ", email)
         await sendEmail(email, 'Sua nova conta', `Sua senha é: ${password}`)
       }
 
 
-      return res.json({message: `Novo ${role} criado com sucesso!`, id, nome, email, role });
+      return res.json({ message: `Novo ${role} criado com sucesso!`, id, nome, email, role });
     } catch (e) {
       console.log("error: ", e)
       return res.status(400).json({
@@ -56,6 +57,18 @@ class UserController {
     }
   }
 
+  async getAllStudents(req, res) {
+    try {
+      const students = await User.findAll({
+        where: { role: 'estudante' }
+      })
+      res.status(200).json(students)
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ error: "Erro ao listar os estudantes" });
+    }
+  }
+
   async update(req, res) {
     try {
       const user = await User.findByPk(req.params.id);
@@ -85,7 +98,7 @@ class UserController {
       }
 
       await user.destroy();
-      return res.json({message: "Usuario deletado com sucesso."});
+      return res.json({ message: "Usuario deletado com sucesso." });
     } catch (e) {
       return res.status(500).json({
         errors: e.errors.map((err) => err.message),

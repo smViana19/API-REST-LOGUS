@@ -1,41 +1,35 @@
-import dotenv from "dotenv";
-import { resolve } from "path";
-
-dotenv.config();
-import "./database";
-import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import helmet from "helmet";
+import { resolve } from "path";
+import "./database";
 import {
   API_BASE_URL,
-  URL_EDUCATION_LEVEL_ROUTE,
-  URL_GRADE_ROUTE, URL_SCHOOL_YEAR_GRADE_ROUTE,
-  URL_SCHOOL_YEAR_ROUTE,
+  URL_CLASSES_ROUTE,
+  URL_CLASSES_STUDENTS_ROUTE,
+  URL_GRADE_ROUTE,
   URl_SUBJECTS_MATERIALS_ROUTE,
   URL_SUBJECTS_ROUTE,
+  URl_SUBMIT_ACTIVITY_ROUTE,
   URL_TASKS_ROUTE,
   URL_TOKENS_ROUTE,
-  URL_USERS_ROUTE,
-  URl_SUBMIT_ACTIVITY_ROUTE, URL_NOTE_ROUTE,
-  URL_PERIOD_ROUTE
+  URL_USERS_ROUTE
 } from "./utils/RoutesUtils";
 
+dotenv.config();
+
+import classesRoutes from './routes/classesRoutes';
 import homeRoutes from "./routes/homeRoutes";
-import userRoutes from "./routes/userRoutes";
-import tokenRoutes from "./routes/tokenRoutes";
-import taskRoutes from "./routes/taskRoutes";
+import subjectMaterialRoutes from "./routes/subjectMaterialRoutes";
 import subjectRoutes from "./routes/subjectRoutes";
-import subjectMaterialRoutes from "./routes/subjectMaterialRoutes"
 import submitActivityRoutes from "./routes/submitActivityRoutes";
-import schoolYearRoutes from "./routes/schoolYearRoutes";
-import educationLevelRoutes from "./routes/educationLevelRoutes";
-import gradeRoutes from "./routes/gradeRoutes";
-import schoolYearGradeRoutes from "./routes/schoolYearGradeRoutes";
-import noteRoutes from "./routes/noteRoutes";
-import periodRoutes from './routes/periodRoutes';
+import taskRoutes from "./routes/taskRoutes";
+import tokenRoutes from "./routes/tokenRoutes";
+import userRoutes from "./routes/userRoutes";
+import classStudentRoutes from './routes/classStudentRoutes';
+import gradeRoutes from './routes/gradeRoutes';
 
-
-//PARA UTILIZAR A API
 const whiteList = [
   "http://localhost:5174",
   "http://localhost:3000",
@@ -48,7 +42,6 @@ const whiteList = [
 
 const corOptions = {
   origin: function (origin, callback) {
-    //se a URI tiver nas opçoes de whiteList
     if (whiteList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
@@ -59,7 +52,6 @@ const corOptions = {
 
 class App {
   constructor() {
-    //atributos
     this.App = express();
     this.middlewares();
     this.routes();
@@ -68,28 +60,24 @@ class App {
   middlewares() {
     this.App.use(cors(corOptions));
     this.App.use(helmet());
-    //metodo das middlewares
-    this.App.use(express.urlencoded({ extended: true })); //configuracao do express
+
+    this.App.use(express.urlencoded({ extended: true }));
     this.App.use(express.json());
     this.App.use(express.static(resolve(__dirname, "uploads")));
   }
 
   routes() {
-    //metodo das rotas
+
     this.App.use(API_BASE_URL, homeRoutes);
     this.App.use(URL_USERS_ROUTE, userRoutes);
     this.App.use(URL_TOKENS_ROUTE, tokenRoutes);
-    // this.App.use(URL_ALUNO_ROUTE, alunoRoutes);
     this.App.use(URL_TASKS_ROUTE, taskRoutes);
     this.App.use(URL_SUBJECTS_ROUTE, subjectRoutes);
     this.App.use(URl_SUBJECTS_MATERIALS_ROUTE, subjectMaterialRoutes);
-    this.App.use(URL_SCHOOL_YEAR_ROUTE, schoolYearRoutes)
-    this.App.use(URL_EDUCATION_LEVEL_ROUTE, educationLevelRoutes)
-    this.App.use(URL_GRADE_ROUTE, gradeRoutes)
-    this.App.use(URL_SCHOOL_YEAR_GRADE_ROUTE, schoolYearGradeRoutes)
     this.App.use(URl_SUBMIT_ACTIVITY_ROUTE, submitActivityRoutes);
-    this.App.use(URL_NOTE_ROUTE, noteRoutes)
-    this.App.use(URL_PERIOD_ROUTE, periodRoutes)
+    this.App.use(URL_CLASSES_ROUTE, classesRoutes);
+    this.App.use(URL_CLASSES_STUDENTS_ROUTE, classStudentRoutes);
+    this.App.use(URL_GRADE_ROUTE, gradeRoutes);
   }
 }
 

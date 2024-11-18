@@ -1,34 +1,26 @@
-import Sequelize, {Model} from "sequelize";
+import Sequelize, { Model } from "sequelize"
 
 export default class Grade extends Model {
   static init(sequelize) {
     super.init({
-        nome: {
-          type: Sequelize.STRING,
-          defaultValue: "",
-          validate: {
-            len: {
-              args: [1, 255],
-              msg: "Deve ter mais de 1 caractere.",
-            },
-          },
-        },
-        descricao: {
-          type: Sequelize.STRING,
-          defaultValue: ""
-        },
+      grade: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
-      {
-        sequelize,
-        modelName: "Grade",
-        tableName: "series",
-        timestamps: false
+      period: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
-    );
+    }, {
+      sequelize,
+      modelName: "Grade",
+      tableName: "grades",
+      timestamps: false
+    });
     return this;
   }
   static associate(models) {
-    this.belongsTo(models.EducationLevel, { foreignKey: 'nivel_educacional_id', as: 'niveis_escolares' });
-    // this.hasMany(models.SubjectMaterial, { foreignKey: "serie_id", as: "serie" });
+    this.belongsTo(models.User, { foreignKey: "user_id", as: "student" });
+    this.belongsTo(models.Subject, { foreignKey: "subject_id", as: "subject" });
   }
 }
