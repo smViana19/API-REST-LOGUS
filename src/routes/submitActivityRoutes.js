@@ -10,10 +10,10 @@ const upload = multer(multerConfig);
 
 router.post('/', upload.array('files', 5), SubmitActivityController.store);
 
-router.get('/:subject_material_id', SubmitActivityController.index )
-router.get('/:id', SubmitActivityController.show )
+router.get('/:subject_material_id', SubmitActivityController.index)
+router.get('/:id', SubmitActivityController.show)
 
 router.delete('/materias/material/submit/:id', SubmitActivityController.delete);
-
+router.get('/user/:user_id/total', SubmitActivityController.getTotalByUser);
 
 export default router;
